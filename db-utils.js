@@ -1,4 +1,4 @@
-const setup = `
+const setupDB = `
 CREATE (TheMatrix:Movie {title:'The Matrix', released:1999, tagline:'Welcome to the Real World'})
 CREATE (Keanu:Person {name:'Keanu Reeves', born:1964})
 CREATE (Carrie:Person {name:'Carrie-Anne Moss', born:1967})
@@ -511,4 +511,10 @@ MATCH (a)-[:ACTED_IN]->(m)<-[:DIRECTED]-(d) RETURN a,m,d LIMIT 10;`
 // Delete all nodes and relationships
 const teardown = "MATCH (n) DETACH DELETE n"
 
-module.exports = { setup, teardown }
+const setupTextSearch = `
+db.index.fulltext.createNodeIndex
+
+db.index.fulltext.createRelationshipIndex
+`
+
+module.exports = { setupDB, teardown }
